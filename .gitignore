@@ -1,0 +1,73 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+/node_modules
+
+# Next.js
+# dependencies
+/client/node_modules
+/client/.pnp
+/client/.pnp.js
+/client/.yarn/install-state.gz
+
+# testing
+/client/coverage
+
+# next.js
+/client/.next/
+/client/out/
+
+# production
+/client/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+/client/npm-debug.log*
+/client/yarn-debug.log*
+/client/yarn-error.log*
+
+# env files
+/client/.env*
+
+# vercel
+/client/.vercel
+
+# typescript
+*.tsbuildinfo
+/client/next-env.d.ts
+
+# FastAPI
+/server/.idea
+/server/.ipynb_checkpoints
+/server/.mypy_cache
+/server/.vscode
+/server/__pycache__
+/server/.pytest_cache
+/server/ htmlcov
+/server/dist
+/server/site
+/server/site_zensical_src
+/server/.coverage*
+/server/coverage.xml
+/server/.netlify
+/server/test.db
+/server/log.txt
+/server/Pipfile.lock
+/server/env3.*
+/server/env
+/server/docs_build
+/server/site_build
+/server/venv
+/server/docs.zip
+/server/archive.zip
+/server/app/__pycache__
+
+# vim temporary files
+*~
+.*.sw?
+.cache
+
+# macOS
+.codspeed

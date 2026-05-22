@@ -1,0 +1,34 @@
+{
+  "name": "ai-financial-portfolio-advisor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wontae-gramin9/Ai-financial-portfolio-advisor.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wontae-gramin9/Ai-financial-portfolio-advisor/issues"
+  },
+  "homepage": "https://github.com/wontae-gramin9/Ai-financial-portfolio-advisor#readme",
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0"
+  },
+  "lint-staged": {
+    "client/**/*.{ts,js,html,scss,json,md}": [
+      "npm --prefix client run format",
+      "npm --prefix client run lint"
+    ],
+    "server/**/*.{ts,js,json,md,yml,yaml}": [
+      "ruff --prefix server run format",
+      "ruff --prefix server run check --fix ."
+    ]
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "extends": [
+    "next",
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:tailwindcss/recommended",
+    "prettier"
+  ],
+  "settings": {
+    "tailwindcss": {
+      "config": "tailwind.config.js"
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": ["./tsconfig.json"]
+      }
+    }
+  },
+  "rules": {
+    "import/no-unresolved": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-non-null-asserted-optional-chain": "off",
+    "tailwindcss/classnames-order": "off",
+    "tailwindcss/no-custom-classname": "off",
+    "react/react-in-jsx-scope": "off",
+    "import/no-named-as-default": "off",
+    "import/order": [
+      2,
+      {
+        "alphabetize": {
+          "order": "asc"
+        }
+      }
+    ]
+  }
+}

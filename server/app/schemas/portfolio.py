@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime
 from decimal import Decimal
 
 from pydantic import BaseModel
@@ -37,7 +37,7 @@ class AssetGroupRead(BaseModel):
 
 
 class SnapshotCreate(BaseModel):
-    recorded_at: date  # 월의 첫째 날 (예: 2024-01-01 = 2024년 1월)
+    recorded_at: datetime  # 월의 첫째 날 (예: 2024-01-01 = 2024년 1월)
     total_value: Decimal
     base_currency: str = "USD"
     asset_groups: list[AssetGroupCreate]
@@ -45,7 +45,7 @@ class SnapshotCreate(BaseModel):
 
 class SnapshotRead(BaseModel):
     id: int
-    recorded_at: date
+    recorded_at: datetime
     total_value: Decimal
     base_currency: str
     asset_groups: list[AssetGroupRead]
@@ -57,7 +57,7 @@ class SnapshotSummary(BaseModel):
     """타임라인용 - 상세 holdings 제외"""
 
     id: int
-    recorded_at: date
+    recorded_at: datetime
     total_value: Decimal
     base_currency: str
 

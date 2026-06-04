@@ -27,7 +27,7 @@
       "npm --prefix client run lint"
     ],
     "server/**/*.py": [
-      "ruff format",
+      "ruff format .",
       "ruff check --fix"
     ]
   }

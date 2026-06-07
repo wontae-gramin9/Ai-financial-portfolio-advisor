@@ -1,3 +1,5 @@
+import uuid
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
@@ -29,7 +31,7 @@ def create_index(payload: MacroIndexCreate, db: Session = Depends(get_db)):
 
 
 @router.get("/{index_id}/values", response_model=MacroIndexWithValues)
-def get_index_values(index_id: int, db: Session = Depends(get_db)):
+def get_index_values(index_id: uuid.UUID, db: Session = Depends(get_db)):
     index = db.query(MacroIndex).filter(MacroIndex.id == index_id).first()
     if not index:
         raise HTTPException(status_code=404, detail="Index not found")
@@ -38,7 +40,7 @@ def get_index_values(index_id: int, db: Session = Depends(get_db)):
 
 @router.post("/{index_id}/values", response_model=MacroIndexValueRead, status_code=201)
 def add_index_value(
-    index_id: int, payload: MacroIndexValueCreate, db: Session = Depends(get_db)
+    index_id: uuid.UUID, payload: MacroIndexValueCreate, db: Session = Depends(get_db)
 ):
     value = MacroIndexValue(
         index_id=index_id,

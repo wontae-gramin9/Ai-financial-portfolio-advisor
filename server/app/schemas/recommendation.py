@@ -1,3 +1,4 @@
+import uuid
 from datetime import date, datetime
 from decimal import Decimal
 
@@ -7,7 +8,7 @@ from app.models.recommendation import ActionType
 
 
 class RecommendationRead(BaseModel):
-    id: int
+    id: uuid.UUID
     action: ActionType
     sector: str
     target_name: str | None

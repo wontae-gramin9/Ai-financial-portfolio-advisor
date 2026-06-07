@@ -1,3 +1,5 @@
+import uuid
+
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
@@ -10,7 +12,7 @@ router = APIRouter()
 
 @router.get("/", response_model=list[RecommendationRead])
 def get_recommendations(
-    snapshot_id: int | None = None,
+    snapshot_id: uuid.UUID | None = None,
     db: Session = Depends(get_db),
 ):
     query = db.query(Recommendation).order_by(Recommendation.created_at.desc())

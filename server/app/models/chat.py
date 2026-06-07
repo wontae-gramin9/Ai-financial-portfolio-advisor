@@ -1,6 +1,7 @@
 import enum
+import uuid
 
-from sqlalchemy import DateTime, Enum, ForeignKey, Integer, String, Text
+from sqlalchemy import DateTime, Enum, ForeignKey, String, Text, Uuid
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.sql import func
 
@@ -15,12 +16,12 @@ class MessageRole(str, enum.Enum):
 class ChatSession(Base):
     __tablename__ = "chat_sessions"
 
-    id: Mapped[int] = mapped_column(primary_key=True, index=True)
+    id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
     session_key: Mapped[str] = mapped_column(
         String(100), unique=True, index=True
     )  # UUID
-    portfolio_snapshot_id: Mapped[int | None] = mapped_column(
-        Integer, ForeignKey("portfolio_snapshots.id"), nullable=True
+    portfolio_snapshot_id: Mapped[uuid.UUID | None] = mapped_column(
+        Uuid, ForeignKey("portfolio_snapshots.id"), nullable=True
     )
     created_at: Mapped[DateTime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
@@ -36,9 +37,9 @@ class ChatSession(Base):
 class ChatMessage(Base):
     __tablename__ = "chat_messages"
 
-    id: Mapped[int] = mapped_column(primary_key=True, index=True)
-    session_id: Mapped[int] = mapped_column(
-        ForeignKey("chat_sessions.id", ondelete="CASCADE")
+    id: Mapped[uuid.UUID] = mapped_column(Uuid, primary_key=True, default=uuid.uuid4)
+    session_id: Mapped[uuid.UUID] = mapped_column(
+        Uuid, ForeignKey("chat_sessions.id", ondelete="CASCADE")
     )
     role: Mapped[MessageRole] = mapped_column(Enum(MessageRole))
     content: Mapped[str] = mapped_column(Text)

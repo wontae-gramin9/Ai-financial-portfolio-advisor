@@ -1,6 +1,16 @@
 import enum
+import uuid
 
-from sqlalchemy import Date, DateTime, Enum, ForeignKey, Integer, Numeric, String, Text
+from sqlalchemy import (
+    Date,
+    DateTime,
+    Enum,
+    ForeignKey,
+    Numeric,
+    String,
+    Text,
+    Uuid,
+)
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.sql import func
 
@@ -16,9 +26,9 @@ class ActionType(str, enum.Enum):
 class Recommendation(Base):
     __tablename__ = "recommendations"
 
-    id: Mapped[int] = mapped_column(primary_key=True, index=True)
-    portfolio_snapshot_id: Mapped[int | None] = mapped_column(
-        Integer, ForeignKey("portfolio_snapshots.id"), nullable=True
+    id: Mapped[uuid.UUID] = mapped_column(primary_key=True, index=True)
+    portfolio_snapshot_id: Mapped[uuid.UUID | None] = mapped_column(
+        Uuid, ForeignKey("portfolio_snapshots.id"), nullable=True, default=uuid.uuid4
     )
     action: Mapped[ActionType] = mapped_column(Enum(ActionType))
     sector: Mapped[str] = mapped_column(String(100))  # str로 유지 - AI가 동적 추가 가능

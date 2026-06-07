@@ -1,3 +1,4 @@
+import uuid
 from datetime import datetime
 from decimal import Decimal
 
@@ -12,7 +13,7 @@ class AssetCreate(BaseModel):
 
 
 class AssetRead(AssetCreate):
-    id: int
+    id: uuid.UUID
 
     model_config = {"from_attributes": True}
 
@@ -26,7 +27,7 @@ class AssetGroupCreate(BaseModel):
 
 
 class AssetGroupRead(BaseModel):
-    id: int
+    id: uuid.UUID
     country: str
     broker: str
     total_value: Decimal
@@ -37,14 +38,14 @@ class AssetGroupRead(BaseModel):
 
 
 class SnapshotCreate(BaseModel):
-    recorded_at: datetime  # 월의 첫째 날 (예: 2024-01-01 = 2024년 1월)
+    recorded_at: datetime
     total_value: Decimal
     base_currency: str = "USD"
     asset_groups: list[AssetGroupCreate]
 
 
 class SnapshotRead(BaseModel):
-    id: int
+    id: uuid.UUID
     recorded_at: datetime
     total_value: Decimal
     base_currency: str
@@ -56,7 +57,7 @@ class SnapshotRead(BaseModel):
 class SnapshotSummary(BaseModel):
     """타임라인용 - 상세 holdings 제외"""
 
-    id: int
+    id: uuid.UUID
     recorded_at: datetime
     total_value: Decimal
     base_currency: str

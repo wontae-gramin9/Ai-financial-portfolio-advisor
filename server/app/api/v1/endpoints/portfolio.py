@@ -1,3 +1,5 @@
+import uuid
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
@@ -14,7 +16,7 @@ def get_snapshots(db: Session = Depends(get_db)):
 
 
 @router.get("/{snapshot_id}", response_model=SnapshotRead)
-def get_snapshot(snapshot_id: int, db: Session = Depends(get_db)):
+def get_snapshot(snapshot_id: uuid.UUID, db: Session = Depends(get_db)):
     snapshot = (
         db.query(PortfolioSnapshot).filter(PortfolioSnapshot.id == snapshot_id).first()
     )
@@ -62,7 +64,7 @@ def create_snapshot(payload: SnapshotCreate, db: Session = Depends(get_db)):
 
 @router.put("/{snapshot_id}", response_model=SnapshotRead)
 def update_snapshot(
-    snapshot_id: int, payload: SnapshotCreate, db: Session = Depends(get_db)
+    snapshot_id: uuid.UUID, payload: SnapshotCreate, db: Session = Depends(get_db)
 ):
     snapshot = (
         db.query(PortfolioSnapshot).filter(PortfolioSnapshot.id == snapshot_id).first()
@@ -106,7 +108,7 @@ def update_snapshot(
 
 
 @router.delete("/{snapshot_id}", status_code=204)
-def delete_snapshot(snapshot_id: int, db: Session = Depends(get_db)):
+def delete_snapshot(snapshot_id: uuid.UUID, db: Session = Depends(get_db)):
     snapshot = (
         db.query(PortfolioSnapshot).filter(PortfolioSnapshot.id == snapshot_id).first()
     )

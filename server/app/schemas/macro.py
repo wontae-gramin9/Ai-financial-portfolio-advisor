@@ -1,3 +1,4 @@
+import uuid
 from datetime import datetime
 from decimal import Decimal
 
@@ -12,7 +13,7 @@ class MacroIndexCreate(BaseModel):
 
 
 class MacroIndexRead(BaseModel):
-    id: int
+    id: uuid.UUID
     name: str
     symbol: str
     description: str | None
@@ -22,13 +23,13 @@ class MacroIndexRead(BaseModel):
 
 
 class MacroIndexValueCreate(BaseModel):
-    index_id: int
+    index_id: uuid.UUID
     recorded_at: datetime
     value: Decimal
 
 
 class MacroIndexValueRead(BaseModel):
-    id: int
+    id: uuid.UUID
     recorded_at: datetime
     value: Decimal
 
@@ -36,7 +37,7 @@ class MacroIndexValueRead(BaseModel):
 
 
 class MacroIndexWithValues(BaseModel):
-    id: int
+    id: uuid.UUID
     name: str
     symbol: str
     values: list[MacroIndexValueRead]

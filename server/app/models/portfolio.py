@@ -1,7 +1,8 @@
-import datetime
+import uuid
+from datetime import datetime
 from decimal import Decimal
 
-from sqlalchemy import Date, ForeignKey, Numeric, String
+from sqlalchemy import Date, ForeignKey, Numeric, String, Uuid
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.database import Base
@@ -10,10 +11,10 @@ from app.core.database import Base
 class PortfolioSnapshot(Base):
     __tablename__ = "portfolio_snapshots"
 
-    id: Mapped[int] = mapped_column(primary_key=True, index=True)
-    recorded_at: Mapped[datetime.date] = mapped_column(
-        Date, nullable=False, unique=True
+    id: Mapped[uuid.UUID] = mapped_column(
+        Uuid, primary_key=True, index=True, default=uuid.uuid4
     )
+    recorded_at: Mapped[datetime] = mapped_column(Date, nullable=False, unique=True)
     total_value: Mapped[Decimal] = mapped_column(Numeric(18, 2))
     base_currency: Mapped[str] = mapped_column(String(3), default="USD")
 
@@ -25,9 +26,11 @@ class PortfolioSnapshot(Base):
 class AssetGroup(Base):
     __tablename__ = "asset_groups"
 
-    id: Mapped[int] = mapped_column(primary_key=True, index=True)
-    snapshot_id: Mapped[int] = mapped_column(
-        ForeignKey("portfolio_snapshots.id", ondelete="CASCADE")
+    id: Mapped[uuid.UUID] = mapped_column(
+        Uuid, primary_key=True, index=True, default=uuid.uuid4
+    )
+    snapshot_id: Mapped[uuid.UUID] = mapped_column(
+        Uuid, ForeignKey("portfolio_snapshots.id", ondelete="CASCADE")
     )
     country: Mapped[str] = mapped_column(String(2))  # ISO 3166-1 alpha-2 (US, KR, GB)
     broker: Mapped[str] = mapped_column(String(100))
@@ -43,8 +46,10 @@ class AssetGroup(Base):
 class Asset(Base):
     __tablename__ = "assets"
 
-    id: Mapped[int] = mapped_column(primary_key=True, index=True)
-    asset_group_id: Mapped[int] = mapped_column(
+    id: Mapped[uuid.UUID] = mapped_column(
+        Uuid, primary_key=True, index=True, default=uuid.uuid4
+    )
+    asset_group_id: Mapped[uuid.UUID] = mapped_column(
         ForeignKey("asset_groups.id", ondelete="CASCADE")
     )
     name: Mapped[str] = mapped_column(String(200))

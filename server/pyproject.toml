@@ -7,3 +7,6 @@ select = ["E", "F", "I"]  # E: pycodestyle, F: pyflakes, I: isort
 
 [tool.ruff.format]
 quote-style = "double"
+
+[tool.pytest.ini_options]
+env = ["ENV=test"]

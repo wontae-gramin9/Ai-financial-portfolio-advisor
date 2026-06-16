@@ -1,6 +1,9 @@
+import os
 from typing import List
 
 from pydantic_settings import BaseSettings
+
+env = os.getenv("ENV", "development")
 
 
 class Settings(BaseSettings):
@@ -16,7 +19,7 @@ class Settings(BaseSettings):
 
     CHROMA_PERSIST_DIR: str = "./chroma_db"
 
-    model_config = {"env_file": ".env"}
+    model_config = {"env_file": f".env.{env}"}
 
 
 settings = Settings()  # pyright: ignore[reportCallIssue]
